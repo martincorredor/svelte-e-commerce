@@ -8,6 +8,7 @@
     updateDoc,
   } from 'firebase/firestore';
   import { db } from './firebase';
+  import { onDestroy } from 'svelte';
 
   let product = {
     name: '',
@@ -16,10 +17,25 @@
     valor: null,
   };
 
+  let productList = [];
+
   const handleSubmit = async () => {
     await addDoc(collection(db, 'products'), product);
-    console.log(`se guardó el producto: ${product}`);
+    console.log(`se guardó el producto`);
   };
+
+  const unsub = onSnapshot(
+    collection(db, 'products'),
+    (querySnapshot) => {
+      productList = querySnapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      console.log(productList);
+    },
+    (err) => console.log(err)
+  );
+
+  onDestroy(unsub);
 </script>
 
 <main>
@@ -50,6 +66,18 @@
       placeholder="Escriba una descripción"
     />
     <button>Save</button>
+
+    {#each productList as product}
+      <div>
+        <h5>{product.name}</h5>
+        <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
+        <p>{product.description}</p>
+        <p>Valor: {product.valor}</p>
+
+        <button>Eliminar</button>
+        <button>Editar</button>
+      </div>
+    {/each}
   </form>
 </main>
 
