@@ -19,12 +19,7 @@
 
   let productList = [];
 
-  const handleSubmit = async () => {
-    await addDoc(collection(db, 'products'), product);
-    console.log(`se guardó el producto`);
-  };
-
-  const unsub = onSnapshot(
+  const unsubscribe = onSnapshot(
     collection(db, 'products'),
     (querySnapshot) => {
       productList = querySnapshot.docs.map((doc) => {
@@ -35,7 +30,23 @@
     (err) => console.log(err)
   );
 
-  onDestroy(unsub);
+  const deleteProduct = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'products', id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await addDoc(collection(db, 'products'), product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onDestroy(unsubscribe);
 </script>
 
 <main>
@@ -66,19 +77,19 @@
       placeholder="Escriba una descripción"
     />
     <button>Save</button>
-
-    {#each productList as product}
-      <div>
-        <h5>{product.name}</h5>
-        <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
-        <p>{product.description}</p>
-        <p>Valor: {product.valor}</p>
-
-        <button>Eliminar</button>
-        <button>Editar</button>
-      </div>
-    {/each}
   </form>
+
+  {#each productList as product}
+    <div>
+      <h5>{product.name}</h5>
+      <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
+      <p>{product.description}</p>
+      <p>Valor: {product.valor}</p>
+
+      <button on:click={deleteProduct(product.id)}>Eliminar</button>
+      <button>Editar</button>
+    </div>
+  {/each}
 </main>
 
 <style></style>
