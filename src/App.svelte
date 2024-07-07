@@ -9,6 +9,8 @@
   } from 'firebase/firestore';
   import { db } from './firebase';
   import { onDestroy } from 'svelte';
+  import CustomForm from './components/CustomForm.svelte';
+  import Home from './components/Home.svelte';
 
   let product = {
     name: '',
@@ -16,10 +18,14 @@
     imageUrl: '',
     valor: null,
   };
-
   let productList = [];
   let editStatus = false;
   let currentId = '';
+  let isStarted = false;
+
+  const handleStart = () => {
+    isStarted = true
+  }
 
   const unsubscribe = onSnapshot(
     collection(db, 'products'),
@@ -91,49 +97,30 @@
   };
 
   onDestroy(unsubscribe);
+
+  export let name;
+  const changeName = (nuevo) => {
+    name = nuevo;
+  };
 </script>
 
 <main>
-  <form on:submit|preventDefault={handleSubmit}>
-    <label for="name">Nombre</label>
-    <input
-      bind:value={product.name}
-      type="text"
-      placeholder="Escribe el nombre del producto"
-    />
-    <label for="imageUrl">Imagen del producto (opcional)</label>
-    <input
-      bind:value={product.imageUrl}
-      type="text"
-      placeholder="Escribe la url de la imagen"
-    />
-    <label for="name">Valor</label>
-    <input
-      bind:value={product.valor}
-      type="number"
-      placeholder="Escribe el valor del producto"
-    />
-    <label for="description">Descripción</label>
-    <textarea
-      bind:value={product.description}
-      id="description"
-      rows="3"
-      placeholder="Escriba una descripción"
-    />
-    <button>Save</button>
-  </form>
+  {#if !isStarted}
+    <Home {handleStart} />
+  {:else}
+    <CustomForm {handleSubmit} {product} />
+    {#each productList as product}
+      <div>
+        <h5>{product.name}</h5>
+        <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
+        <p>{product.description}</p>
+        <p>Valor: {product.valor}</p>
 
-  {#each productList as product}
-    <div>
-      <h5>{product.name}</h5>
-      <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
-      <p>{product.description}</p>
-      <p>Valor: {product.valor}</p>
-
-      <button on:click={deleteProduct(product.id)}>Eliminar</button>
-      <button on:click={editProduct(product)}>Editar</button>
-    </div>
-  {/each}
+        <button on:click={deleteProduct(product.id)}>Eliminar</button>
+        <button on:click={editProduct(product)}>Editar</button>
+      </div>
+    {/each}
+  {/if}
 </main>
 
 <style></style>
