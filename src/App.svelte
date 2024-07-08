@@ -13,6 +13,9 @@
   import CustomForm from './components/CustomForm.svelte';
   import LandingPage from './components/LandingPage.svelte';
   import Nav from './components/Nav.svelte';
+  import BuyProducts from './components/BuyProducts.svelte';
+  import ListOfProducts from './components/ListOfProducts.svelte';
+  import AddProducts from './components/AddProducts.svelte';
 
   let product = {
     name: '',
@@ -23,12 +26,16 @@
   let productList = [];
   let editStatus = false;
   let currentId = '';
-  let isStarted = false;
+  let isStarted = true;
+  let isBuyMode = false;
 
   const handleStart = () => {
-    isStarted = true
-  }
+    isStarted = true;
+  };
 
+  const handleMode = () => {
+    isBuyMode = !isBuyMode;
+  };
   const unsubscribe = onSnapshot(
     collection(db, 'products'),
     (querySnapshot) => {
@@ -99,27 +106,28 @@
   };
 
   onDestroy(unsubscribe);
-
 </script>
 
 <main>
   {#if !isStarted}
     <LandingPage {handleStart} />
   {:else}
-    <Nav/>
-    <CustomForm {handleSubmit} {product} />
-    {#each productList as product}
-      <div>
-        <h5>{product.name}</h5>
-        <!-- <img src={product.imageUrl} alt="Imagen del producto" > -->
-        <p>{product.description}</p>
-        <p>Valor: {product.valor}</p>
-
-        <button on:click={deleteProduct(product.id)}>Eliminar</button>
-        <button on:click={editProduct(product)}>Editar</button>
-      </div>
-    {/each}
+    <Nav {handleMode} />
+    <div class="content">
+      {#if isBuyMode}
+        <BuyProducts />
+      {:else}
+        <AddProducts />
+      {/if}
+      <CustomForm {handleSubmit} {product} />
+      <ListOfProducts {product} {productList} {editProduct} {deleteProduct} />
+    </div>
   {/if}
 </main>
 
-<style></style>
+<style>
+  .content{
+    position: relative;
+    top: 15vh;
+  }
+</style>
