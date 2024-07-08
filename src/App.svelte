@@ -9,8 +9,10 @@
   } from 'firebase/firestore';
   import { db } from './firebase';
   import { onDestroy } from 'svelte';
+
   import CustomForm from './components/CustomForm.svelte';
-  import Home from './components/Home.svelte';
+  import LandingPage from './components/LandingPage.svelte';
+  import Nav from './components/Nav.svelte';
 
   let product = {
     name: '',
@@ -98,16 +100,13 @@
 
   onDestroy(unsubscribe);
 
-  export let name;
-  const changeName = (nuevo) => {
-    name = nuevo;
-  };
 </script>
 
 <main>
   {#if !isStarted}
-    <Home {handleStart} />
+    <LandingPage {handleStart} />
   {:else}
+    <Nav/>
     <CustomForm {handleSubmit} {product} />
     {#each productList as product}
       <div>
