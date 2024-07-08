@@ -18,7 +18,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
+    color: #000;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -56,5 +57,12 @@
   }
   button:focus {
     background-color: #2874A6;
+  }
+
+  @media screen and (max-width: 1024px){
+    .landing-page {
+      align-items: flex-start;
+      padding-left: 8vw;
+    }
   }
 </style>

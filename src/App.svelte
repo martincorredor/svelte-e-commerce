@@ -24,8 +24,8 @@
   let productList = [];
   let editStatus = false;
   let currentId = '';
-  let isStarted = true;
-  let mode = 'buy';
+  let isStarted = false;
+  let mode = 'sell';
 
   const handleStart = () => {
     isStarted = true;
@@ -34,21 +34,25 @@
   const handleMode = (currentMode) => {
     mode = currentMode;
   };
+
   const unsubscribe = onSnapshot(
     collection(db, 'products'),
     (querySnapshot) => {
       productList = querySnapshot.docs.map((doc) => {
         return { ...doc.data(), id: doc.id };
       });
-      console.log(productList);
     },
     (err) => console.log(err)
   );
 
+  const handleAlert = (service) => {
+    alert(`Se ha ${service} tu producto correctamente`)
+  }
+
   const deleteProduct = async (id) => {
     try {
-      // TODO confirm alert pending
       await deleteDoc(doc(db, 'products', id));
+      handleAlert('eliminado')
     } catch (error) {
       console.error(error);
     }
@@ -64,10 +68,10 @@
     editStatus = true;
   };
 
-  const addTask = async () => {
+  const addProduct = async () => {
     try {
       await addDoc(collection(db, 'products'), product);
-      console.log('Task saved');
+      handleAlert('agregado')
     } catch (error) {
       console.error(error);
     }
@@ -76,6 +80,7 @@
   const updateProduct = async () => {
     try {
       await updateDoc(doc(db, 'products', currentId), product);
+      handleAlert('actualizado')
     } catch (error) {
       console.error(error);
     }
@@ -87,11 +92,12 @@
         console.log('updating');
         updateProduct();
       } else {
-        addTask();
+        addProduct();
       }
     } catch (error) {
       console.error(error);
     }
+
     // Values ​​to format the form
     product = {
       name: '',

@@ -2,8 +2,8 @@
   export let product, deleteProduct, editProduct, isBuy;
 
   const handleAlert = () => {
-    alert('Aún no tenemos lista la tienda, espéralo pronto')
-  }
+    alert('Aún no tenemos lista la tienda, espéralo muy pronto');
+  };
 </script>
 
 <div class="card">
@@ -58,7 +58,7 @@
 
   .card-content {
     flex: 1;
-    padding: 0px 16px;
+    width: 90%;
     display: flex;
     flex-direction: column;
   }
