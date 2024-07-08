@@ -1,107 +1,83 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# E-commerce
+## Table of contents
+* [General info](#general-info)
+* [Demo](#demo)
+* [App](#app)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
 ---
 
-# svelte app
+## General info
+This repository contains my e-commerce web application.
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+I am carrying out this project in the first instance to solve a technical test, and to a greater extent to continue improving my knowledge of frontend development.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+The user can navigate between two sections, one where they can buy products and another where they can sell them.
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+In the sales section they can create, read (view), update and delete products in real time. (CRUD)
+In the purchase section at the moment they can read (view) the list of current products in real time.
+
+
+### Objective
+Design and partially implement a simplified e-commerce platform focused on the functionality of the user interface and basic interaction with backend services. The key functionalities to be implemented are product catalog management and order management.
+
+### Criteria
+Backend: Quality of the code in TypeScript and compliance with RESTful principles. Integrity and clarity of the API documentation, including CRUD operations.
+Frontend: Quality of the implementation in SvelteKit, use of Tailwind CSS and responsiveness of the design.
+Documentation and Implementation: Quality of additional documentation, implementation process, and git practices.
+
+### Development
+Considering time constraints, I made important decisions with a focus on **user experience (UX) as a priority**.
+
+The application is supported by Firebase, to have the support of a backend, database, and hosting, as these things are transparent to the user.
+
+I created the CRUD functionalities in the front, although connected to Firebase services.
+
+Tailwind was changed to CSS due to problems installing packages in the project, which will be resolved in the future with more time.
+
+The application has a responsive design, although it needs to be polished for the mobile version.
+
+### Possible improvements.
+
+Implement authentication.
+Add the shopping cart in the shopping section.
+Improve the responsive design with CSS or with a library such as Tailwind, Bootstrap, or MaterialUI.
+Routing.
+Improve SEO.
+Testing with unit tests.
+
+## Demo
+Here is a deployed app : https://e-commerce-ac54c.web.app/
+
+
+## App
+![](src/assets/e-commerce-landing.jpg)
+![](src/assets/e-commerce-sell-section.jpg)
+![](src/assets/e-commerce-buy-section.jpg)
+	
+## Technologies
+This project is created with:
+* Svelte
+* JavaScript
+* HTML
+* CSS
+* Firebase (DB, firestore, hosting)
+
+## Setup
+To run this project, after cloning my repository, install it locally using npm:
+
 ```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
+$ cd svelte-e-commerce
+$ npm install
+$ npm run dev
 ```
+---
+Thanks for your visit
 
-...then start [Rollup](https://rollupjs.org):
+## Author
+* **Martin Corredor** - [martincorredor](https://github.com/martincorredor)
 
-```bash
-npm run dev
-```
+## [License]
 
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+MIT © [Martin Corredor](https://github.com/martincorredor)
