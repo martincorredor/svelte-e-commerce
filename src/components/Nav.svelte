@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     gap: 10vw;
+    z-index: 1000;
   }
   span {
     font-weight: 600;

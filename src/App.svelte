@@ -10,12 +10,10 @@
   import { db } from './firebase';
   import { onDestroy } from 'svelte';
 
-  import CustomForm from './components/CustomForm.svelte';
   import LandingPage from './components/LandingPage.svelte';
   import Nav from './components/Nav.svelte';
   import BuyProducts from './components/BuyProducts.svelte';
-  import ListOfProducts from './components/ListOfProducts.svelte';
-  import AddProducts from './components/AddProducts.svelte';
+  import SellProducts from './components/SellProducts.svelte';
 
   let product = {
     name: '',
@@ -117,7 +115,7 @@
       {#if mode === 'buy'}
         <BuyProducts {productList} {editProduct} {deleteProduct} />
       {:else}
-        <AddProducts {product} {productList} {editProduct} {deleteProduct} {handleSubmit}/>
+        <SellProducts {product} {productList} {editProduct} {deleteProduct} {handleSubmit}/>
       {/if}
     </div>
   {/if}
@@ -127,5 +125,6 @@
   .content {
     position: relative;
     top: 15vh;
+    padding: 2vw;
   }
 </style>

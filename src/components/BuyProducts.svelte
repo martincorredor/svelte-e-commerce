@@ -6,5 +6,5 @@
 
 <div>
   <h1>Compra tus productos favoritos</h1>
-  <ListOfProducts {productList} {editProduct} {deleteProduct} />
+  <ListOfProducts {productList} {editProduct} {deleteProduct} isBuy={true} />
 </div>

@@ -8,7 +8,13 @@
 <div>
   <h1>Vende tus productos</h1>
   <CustomForm {handleSubmit} {product} />
-  <ListOfProducts {product} {productList} {editProduct} {deleteProduct} />
+  <ListOfProducts
+    {product}
+    {productList}
+    {editProduct}
+    {deleteProduct}
+    isBuy={false}
+  />
 </div>
 
 <style></style>
