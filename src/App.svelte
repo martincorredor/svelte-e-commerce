@@ -27,14 +27,14 @@
   let editStatus = false;
   let currentId = '';
   let isStarted = true;
-  let isBuyMode = false;
+  let mode = 'buy';
 
   const handleStart = () => {
     isStarted = true;
   };
 
-  const handleMode = () => {
-    isBuyMode = !isBuyMode;
+  const handleMode = (currentMode) => {
+    mode = currentMode;
   };
   const unsubscribe = onSnapshot(
     collection(db, 'products'),
@@ -114,19 +114,17 @@
   {:else}
     <Nav {handleMode} />
     <div class="content">
-      {#if isBuyMode}
-        <BuyProducts />
+      {#if mode === 'buy'}
+        <BuyProducts {productList} {editProduct} {deleteProduct} />
       {:else}
-        <AddProducts />
+        <AddProducts {product} {productList} {editProduct} {deleteProduct} {handleSubmit}/>
       {/if}
-      <CustomForm {handleSubmit} {product} />
-      <ListOfProducts {product} {productList} {editProduct} {deleteProduct} />
     </div>
   {/if}
 </main>
 
 <style>
-  .content{
+  .content {
     position: relative;
     top: 15vh;
   }

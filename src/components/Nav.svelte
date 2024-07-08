@@ -3,8 +3,8 @@
 </script>
 
 <nav>
-  <span on:click={handleMode}>Vende</span>
-  <span on:click={handleMode}>Compra</span>
+  <span on:click={handleMode('sell')}>Vende</span>
+  <span on:click={handleMode('buy')}>Compra</span>
 </nav>
 
 <style>

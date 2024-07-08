@@ -1,8 +1,8 @@
 <script>
-    export let product, productList, deleteProduct, editProduct;
+  export let productList, deleteProduct, editProduct;
 </script>
+
 <div>
-  La lista
   {#each productList as product}
     <div>
       <h5>{product.name}</h5>
